@@ -1,0 +1,2881 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  backdrop-filter: blur(12px);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+}
+
+nav h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c9a84c;
+}
+
+nav h1 span {
+  color: rgba(201, 168, 76, 0.55);
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links li a {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.75);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 1px;
+  background: #c9a84c;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #c9a84c;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 12px 24px;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-cta:hover {
+  background: transparent;
+  color: #c9a84c;
+}
+
+
+/* ── Cart icon in nav ── */
+.cart-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  flex-shrink: 0;
+}
+.cart-icon:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: #c9a84c;
+}
+.cart-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: #c9a84c;
+}
+
+/* ── Item count badge ── */
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  background: #c9a84c;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.cart-count.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Dark overlay behind panel ── */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.cart-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Sliding cart panel ── */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  max-width: 100vw;
+  height: 100vh;
+  background: #111111;
+  border-left: 1px solid rgba(201, 168, 76, 0.2);
+  z-index: 1999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cart-panel.open {
+  transform: translateX(0);
+}
+
+/* ── Cart header ── */
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 32px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  flex-shrink: 0;
+}
+.cart-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #f8f5f0;
+  letter-spacing: 1px;
+}
+.cart-close {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.cart-close:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: #c9a84c;
+}
+.cart-close svg {
+  width: 14px;
+  height: 14px;
+  stroke: #c9a84c;
+}
+
+/* ── Scrollable body ── */
+.cart-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 32px;
+}
+.cart-body::-webkit-scrollbar {
+  width: 3px;
+}
+.cart-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cart-body::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.3);
+}
+
+/* ── Empty state ── */
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  text-align: center;
+  gap: 12px;
+}
+.cart-empty svg {
+  width: 48px;
+  height: 48px;
+  stroke: rgba(201, 168, 76, 0.25);
+  margin-bottom: 8px;
+}
+.cart-empty p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: rgba(248, 245, 240, 0.5);
+}
+.cart-empty span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: rgba(248, 245, 240, 0.25);
+}
+
+/* ── Cart items list ── */
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Single cart item ── */
+.cart-item {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+}
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+/* ── Item thumbnail ── */
+.cart-item-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  filter: brightness(0.85);
+}
+
+/* ── Item info ── */
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cart-item-category {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9a84c;
+}
+.cart-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #f8f5f0;
+  line-height: 1.3;
+}
+.cart-item-price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #c9a84c;
+}
+
+/* ── Quantity + remove controls ── */
+.cart-item-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+}
+.cart-qty button {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  color: #c9a84c;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  transition: background 0.2s ease;
+  line-height: 1;
+}
+.cart-qty button:hover {
+  background: rgba(201, 168, 76, 0.12);
+}
+.cart-qty span {
+  width: 32px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f8f5f0;
+}
+.cart-remove {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0;
+}
+.cart-remove:hover {
+  color: #c9a84c;
+}
+
+/* ── Cart footer ── */
+.cart-footer {
+  padding: 24px 32px 32px;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cart-subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.subtotal-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.5);
+}
+.subtotal-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: #c9a84c;
+}
+.cart-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  color: rgba(248, 245, 240, 0.3);
+  line-height: 1.6;
+  text-align: center;
+}
+.cart-checkout {
+  display: block;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 16px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.cart-checkout:hover {
+  background: transparent;
+  color: #c9a84c;
+}
+.cart-clear {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.3);
+  background: transparent;
+  border: 1px solid rgba(248, 245, 240, 0.1);
+  padding: 12px;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.cart-clear:hover {
+  color: #c9a84c;
+  border-color: rgba(201, 168, 76, 0.3);
+}
+
+/* nav ends here */
+
+
+
+/* ── Hamburger button ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  flex-shrink: 0;
+}
+.hamburger:hover {
+  border-color: #c9a84c;
+  background: rgba(201, 168, 76, 0.08);
+}
+.hamburger span {
+  display: block;
+  width: 16px;
+  height: 1px;
+  background: #c9a84c;
+  transition: all 0.35s ease;
+  transform-origin: center;
+}
+
+/* Hamburger animates to X when open */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ── Dark overlay ── */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.mobile-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Slide-in panel ── */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 100vw;
+  height: 100vh;
+  background: #0a0a0a;
+  border-left: 1px solid rgba(201, 168, 76, 0.2);
+  z-index: 2001;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* ── Close button ── */
+.mobile-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  flex-shrink: 0;
+}
+.mobile-close:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: #c9a84c;
+}
+.mobile-close svg {
+  width: 15px;
+  height: 15px;
+  stroke: #c9a84c;
+}
+
+/* ── Brand name at top of menu ── */
+.mobile-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  padding: 36px 32px 32px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+}
+.mobile-brand span {
+  color: rgba(201, 168, 76, 0.5);
+  font-weight: 400;
+}
+
+/* ── Nav links ── */
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  flex: 1;
+}
+
+.mobile-link {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.65);
+  text-decoration: none;
+  padding: 18px 32px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.07);
+  transition: color 0.3s ease,
+              background 0.3s ease,
+              padding-left 0.3s ease;
+  position: relative;
+}
+.mobile-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: #c9a84c;
+  transition: width 0.3s ease;
+}
+.mobile-link:hover {
+  color: #c9a84c;
+  background: rgba(201, 168, 76, 0.04);
+  padding-left: 40px;
+}
+.mobile-link:hover::before {
+  width: 2px;
+}
+
+/* ── Divider ── */
+.mobile-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(201, 168, 76, 0.3),
+    transparent
+  );
+  margin: 8px 24px;
+}
+
+/* ── Bottom action buttons ── */
+.mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 24px 40px;
+}
+
+/* Book Consultation button */
+.mobile-cta {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 15px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.mobile-cta:hover {
+  background: transparent;
+  color: #c9a84c;
+}
+
+/* WhatsApp button */
+.mobile-whatsapp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #25D366;
+  background: transparent;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  padding: 15px 24px;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.mobile-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.08);
+  border-color: #25D366;
+}
+.mobile-whatsapp svg {
+  width: 16px;
+  height: 16px;
+  fill: #25D366;
+  flex-shrink: 0;
+}
+
+/* ── Only show hamburger on mobile ── */
+
+
+
+.hero-section {
+  position: relative;
+  background-image: url(images/hero-dark-marble.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 64px;
+  overflow: hidden;
+}
+
+/* Dark overlay so text stays readable over the image */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.60) 0%,
+    rgba(10, 10, 10, 0.75) 50%,
+    rgba(10, 10, 10, 0.60) 100%
+  );
+  z-index: 0;
+}
+
+/* Every direct child sits above the overlay */
+.hero-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 28px;
+}
+.home::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: #c9a84c;
+}
+/* Mirror line on the right side for centered layout */
+.home::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+.feed {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(50px, 5.5vw, 75px);
+  font-weight: 900;
+  line-height: 1;
+  color: #f8f5f0;
+  margin-bottom: 24px;
+  max-width: 720px;
+}
+.feed em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+.hero-section > p {
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(248, 245, 240, 0.65);
+  max-width: 460px;
+  margin-bottom: 48px;
+}
+
+.hero-section > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 15px 38px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.btn-primary:hover {
+  background: transparent;
+  color: #c9a84c;
+}
+
+.btn-secondary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.85);
+  background: transparent;
+  border: 1px solid rgba(248, 245, 240, 0.25);
+  padding: 15px 38px;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.btn-secondary:hover {
+  border-color: #c9a84c;
+  color: #c9a84c;
+}
+/* section ends here */
+
+
+
+/* ── WhatsApp Floating Button ── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+  z-index: 9999;
+  width: 58px;
+  height: 58px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow:
+    0 4px 20px rgba(37, 211, 102, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              background 0.3s ease;
+
+  /* Pulse ring animation */
+  animation: whatsapp-pulse 2.5s ease-in-out infinite;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.12);
+  background: #20c35a;
+  box-shadow:
+    0 6px 28px rgba(37, 211, 102, 0.6),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: none;
+}
+
+/* ── WhatsApp SVG icon ── */
+.whatsapp-float svg {
+  width: 30px;
+  height: 30px;
+  fill: #ffffff;
+  flex-shrink: 0;
+}
+
+/* ── Tooltip label ── */
+.whatsapp-tooltip {
+  position: absolute;
+  right: 68px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111111;
+  color: #f8f5f0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-50%) translateX(6px);
+}
+
+/* Tooltip arrow pointing right */
+.whatsapp-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 5px 0 5px 6px;
+  border-style: solid;
+  border-color: transparent transparent transparent #111111;
+}
+
+.whatsapp-float:hover .whatsapp-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* ── Pulse ring animation ── */
+@keyframes whatsapp-pulse {
+  0% {
+    box-shadow:
+      0 4px 20px rgba(37, 211, 102, 0.4),
+      0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 4px 20px rgba(37, 211, 102, 0.4),
+      0 0 0 14px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow:
+      0 4px 20px rgba(37, 211, 102, 0.4),
+      0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* ── Entrance animation on page load ── */
+.whatsapp-float {
+  animation:
+    whatsapp-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1s both,
+    whatsapp-pulse 2.5s ease-in-out 1.6s infinite;
+}
+
+@keyframes whatsapp-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+/* whatsApp logo ends here */
+
+
+
+
+.marquee-strip {
+  background: #c9a84c;
+  padding: 16px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.marquee-inner {
+  display: inline-block;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-inner span {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  margin: 0 8px;
+}
+
+/* Diamond separator between each item */
+.marquee-inner span::after {
+  content: '◆';
+  display: inline-block;
+  margin-left: 16px;
+  font-size: 6px;
+  vertical-align: middle;
+  opacity: 0.5;
+}
+
+.marquee-inner span:last-child::after {
+  display: none;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+/* scroll section ends here */
+
+
+/* ── Section wrapper ── */
+.collection {
+  background: black;
+  padding: 100px 64px;
+}
+
+/* ── "Our Collections" tag ── */
+.collection .top {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.collection .top::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── Main heading ── */
+.collection .home {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 16px;
+}
+.collection .home em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+/* ── Subtitle ── */
+.collection .open {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: rgba(248, 245, 240, 0.55);
+  max-width: 480px;
+  margin-bottom: 60px;
+}
+
+/* ── Three-column card grid ── */
+.collection .overlay {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+/* ── Each card ── */
+.collection .overlay > div {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 3 / 4;
+}
+
+/* ── Card image ── */
+.collection .overlay > div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.65);
+  transition: transform 0.8s ease, filter 0.5s ease;
+}
+.collection .overlay > div:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.45);
+}
+
+/* ── Gradient over image so text reads clearly ── */
+.collection .overlay > div::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.15) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Text block pinned to bottom ── */
+.collection-tag,
+.collection-name,
+.collection-link {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 28px;
+}
+
+.collection-tag {
+  bottom: 100px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c9a84c;
+}
+
+.collection-name {
+  bottom: 64px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #f8f5f0;
+  line-height: 1.2;
+}
+
+.collection-link {
+  bottom: 28px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #f8f5f0;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
+  padding: 0 28px;
+}
+.collection-link::after {
+  content: '→';
+  font-size: 12px;
+}
+.collection .overlay > div:hover .collection-link {
+  opacity: 1;
+  transform: translateY(0);
+  color: #c9a84c;
+}
+/* collection ends here */
+
+/* ── Section wrapper ── */
+.seller-section {
+  background: #0a0a0a;
+  padding: 100px 64px;
+}
+
+/* ── "Best Sellers" tag ── */
+.seller-section .best {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.seller-section .best::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── "Featured Products" heading ── */
+.seller-section .features {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 60px;
+}
+.seller-section .features em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+/* ── 4-column product grid ── */
+.seller-section .product {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+/* ── Each product card ── */
+.seller-section .holder {
+  position: relative;
+  background: black;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.seller-section .holder:hover {
+  transform: translateY(-4px);
+}
+
+/* ── Product image ── */
+.seller-section .holder img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.85);
+  transition: transform 0.6s ease, filter 0.4s ease;
+}
+.seller-section .holder:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.7);
+}
+
+/* ── Badge (New Arrival / Best Seller / Luxury) ── */
+.seller-section .tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  padding: 5px 12px;
+  z-index: 2;
+}
+
+/* ── Text block below image ── */
+.seller-section .list {
+  padding: 20px 20px 24px;
+}
+
+/* ── Category label ── */
+.seller-section .name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+/* ── Product title ── */
+.seller-section .font {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #f8f5f0;
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+/* ── Price row ── */
+.seller-section .price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.seller-section .price span {
+  font-size: 11px;
+  font-weight: 300;
+  color: #555;
+  text-decoration: line-through;
+  margin-left: 8px;
+}
+
+/* ── Add to Cart button ── */
+.seller-section .btn2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  width: 100%;
+}
+.seller-section .btn2:hover {
+  background: #c9a84c;
+  color: #0a0a0a;
+  border-color: #c9a84c;
+}
+/* seller section ends here */
+
+
+/* ── Section wrapper ── */
+.choose-section {
+  background: black;
+  padding: 100px 64px;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+/* ── "Why Choose Us" tag ── */
+.choose-section .expert {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.choose-section .expert::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── "Committed to Excellence" heading ── */
+.choose-section .feature {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 60px;
+}
+.choose-section .feature em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+/* ── 5-column grid ── */
+.choose-section .together {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: rgba(201, 168, 76, 0.1);
+}
+
+/* ── Each feature card ── */
+.choose-section .along {
+  background: #111111;
+  padding: 40px 28px;
+  text-align: center;
+  transition: background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.choose-section .along:hover {
+  background: #1a1a1a;
+}
+
+/* ── Icon circle ── */
+.choose-section .guide {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.choose-section .along:hover .guide {
+  border-color: #c9a84c;
+  background: rgba(201, 168, 76, 0.08);
+}
+
+/* ── Feature title ── */
+.choose-section .best {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f8f5f0;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+/* ── Feature description ── */
+.choose-section .us {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: rgba(248, 245, 240, 0.5);
+  text-align: center;
+}
+/* choose section ends here */
+
+
+/* ── Section wrapper ── */
+.inspiration-section {
+  background: #0a0a0a;
+  padding: 100px 64px;
+}
+
+/* ── "Inspiration Gallery" tag ── */
+.inspiration-section .gallery {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.inspiration-section .gallery::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── "Living Beautifully" heading ── */
+.inspiration-section .beauty {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 14px;
+}
+.inspiration-section .beauty em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+/* ── Subtitle ── */
+.inspiration-section .para {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: rgba(248, 245, 240, 0.55);
+  max-width: 480px;
+  margin-bottom: 56px;
+}
+
+/* ── Three-column image grid ── */
+.inspiration-section .carrier {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+/* ── Each image card ── */
+.inspiration-section .join {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 4 / 5;
+}
+
+/* ── Image ── */
+.inspiration-section .join img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.65);
+  transition: transform 0.8s ease, filter 0.5s ease;
+}
+.inspiration-section .join:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.45);
+}
+
+/* ── Dark gradient over image bottom ── */
+.inspiration-section .join::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Text overlay pinned to bottom ── */
+.inspiration-section .rock {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 28px 32px;
+  z-index: 2;
+}
+
+/* ── Category label ── */
+.inspiration-section .classy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 8px;
+}
+
+/* ── Card title ── */
+.inspiration-section .suit {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #f8f5f0;
+  line-height: 1.25;
+  transition: color 0.3s ease;
+}
+.inspiration-section .join:hover .suit {
+  color: #e8cc7e;
+}
+/* inspiration section ends here */
+
+
+/* ── Section wrapper ── */
+.review-section {
+  background: #111111;
+  padding: 100px 64px;
+}
+
+/* ── "Client Reviews" tag ── */
+.review-section .viewer {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.review-section .viewer::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── "Words from Our Clients" heading ── */
+.review-section .honey {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 56px;
+}
+.review-section .honey em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+/* ── Three-column card grid ── */
+.review-section .sector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ── Each review card ── */
+.review-section .buck {
+  background: #0a0a0a;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  position: relative;
+}
+.review-section .buck:hover {
+  border-color: #c9a84c;
+  background: #141414;
+}
+
+/* ── Large decorative opening quote ── */
+.review-section .buck::before {
+  content: '\201C';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 80px;
+  line-height: 0.6;
+  color: #c9a84c;
+  opacity: 0.25;
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* ── Star rating ── */
+.review-section .star {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #c9a84c;
+  margin-bottom: 20px;
+}
+
+/* ── Review body text ── */
+.review-section .text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.85;
+  color: rgba(248, 245, 240, 0.7);
+  margin-bottom: 32px;
+  flex: 1;
+}
+
+/* ── Divider line above author ── */
+.review-section .names {
+  padding-top: 24px;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f8f5f0;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+/* ── Location / role ── */
+.review-section .location {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #c9a84c;
+}
+/* review section ends here */
+
+
+/* ── Section wrapper ── */
+.brands {
+  background: black;
+  padding: 72px 64px;
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+}
+
+/* ── "Trusted International Brands" label ── */
+.brands-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.3);
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+/* ── Logo row ── */
+.brands-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px 56px;
+}
+
+/* ── Each brand name ── */
+.brand-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.2);
+  cursor: default;
+  transition: color 0.35s ease;
+  position: relative;
+  padding-bottom: 4px;
+}
+
+/* ── Gold underline slides in on hover ── */
+.brand-logo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: #c9a84c;
+  transition: width 0.35s ease;
+}
+
+.brand-logo:hover {
+  color: #c9a84c;
+}
+.brand-logo:hover::after {
+  width: 100%;
+}
+/* brands ends here */
+
+
+/* ── Section wrapper ── */
+.transform-section {
+  position: relative;
+  background: black;
+  padding: 120px 64px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* ── Subtle radial gold glow behind content ── */
+.transform-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 400px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(201, 168, 76, 0.07) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Gold top rule ── */
+.transform-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #c9a84c,
+    transparent
+  );
+}
+
+/* ── "Transform Your Home" tag ── */
+.transform-section .home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.transform-section .home::before,
+.transform-section .home::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── Main heading ── */
+.transform-section .space {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Subtitle ── */
+.transform-section .book {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: rgba(248, 245, 240, 0.55);
+  max-width: 460px;
+  margin: 0 auto 48px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Button row ── */
+.transform-section .cta-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Primary button (gold fill) ── */
+.transform-section .btn-primary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 15px 38px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.transform-section .btn-primary:hover {
+  background: transparent;
+  color: #c9a84c;
+}
+
+/* ── Secondary button (ghost) ── */
+.transform-section .btn-secondary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.85);
+  background: transparent;
+  border: 1px solid rgba(248, 245, 240, 0.25);
+  padding: 15px 38px;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.transform-section .btn-secondary:hover {
+  border-color: #c9a84c;
+  color: #c9a84c;
+}
+/* transform section ends here */
+
+
+/* ── Section wrapper ── */
+.story-section {
+  background: #111111;
+  padding: 100px 64px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+/* ── Left content column ── */
+.story-section .picker {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── "Our Story" tag ── */
+.story-section .headline {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.story-section .headline::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── "Crafting Spaces of Distinction" heading ── */
+.story-section .craft {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(50px, 8.6vw, 62px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 0;
+}
+.story-section .craft em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+/* ── Gold divider under heading ── */
+.story-section .craft::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: #c9a84c;
+  margin-top: 28px;
+  margin-bottom: 28px;
+}
+
+/* ── Body paragraphs ── */
+.story-section .begin,
+.story-section .next {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.9;
+  color: rgba(248, 245, 240, 0.62);
+}
+.story-section .begin {
+  margin-bottom: 18px;
+}
+.story-section .next {
+  margin-bottom: 48px;
+}
+
+/* ── Stats grid ── */
+.story-section .tour {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(201, 168, 76, 0.12);
+  margin-bottom: 48px;
+}
+
+/* ── Each stat block ── */
+.story-section .project {
+  background: #111111;
+  padding: 28px 20px;
+  transition: background 0.3s ease;
+}
+.story-section .project:hover {
+  background: #1a1a1a;
+}
+
+/* ── Big number ── */
+.story-section .percent {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 40px;
+  font-weight: 300;
+  color: #c9a84c;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+/* ── Stat label ── */
+.story-section .satisfy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(248, 245, 240, 0.38);
+  line-height: 1.5;
+}
+
+/* ── CTA button ── */
+.story-section .btn-primary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 15px 38px;
+  text-decoration: none;
+  display: inline-block;
+  align-self: flex-start;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.story-section .btn-primary:hover {
+  background: transparent;
+  color: #c9a84c;
+}
+
+/* ── Right image column ── */
+.story-section > img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10%;
+  max-height: 680px;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.85);
+  transition: filter 0.5s ease;
+}
+.story-section:hover > img {
+  filter: brightness(0.95);
+}
+
+/* ── Gold accent badge pinned over image ── */
+.story-section {
+  position: relative;
+}
+/* story section ends here */
+
+
+/* ── Section wrapper ── */
+.touch-section {
+  background: black;
+  padding: 100px 64px;
+}
+
+/* ── "Get in Touch" tag ── */
+.touch-section .touch {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 16px;
+}
+.touch-section .touch::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: #c9a84c;
+}
+
+/* ── "Visit Our Showroom" heading ── */
+.touch-section .show {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #f8f5f0;
+  margin-bottom: 16px;
+}
+.touch-section .show em {
+  font-style: italic;
+  color: #e8cc7e;
+}
+
+/* ── "We'd love to hear from you" subheading ── */
+.touch-section .open {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px;
+  font-weight: 600;
+  color: #f8f5f0;
+  margin-bottom: 12px;
+}
+
+/* ── Intro paragraph ── */
+.touch-section .private {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.85;
+  color: rgba(248, 245, 240, 0.55);
+  max-width: 520px;
+  margin-bottom: 56px;
+}
+
+/* ── Two-column grid ── */
+.touch-section .contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* ── Left: contact info column ── */
+.touch-section .special {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Each info row ── */
+.touch-section .hour {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+}
+.touch-section .hour:first-child {
+  padding-top: 0;
+}
+.touch-section .hour:last-child {
+  border-bottom: none;
+}
+
+/* ── Info label ── */
+.touch-section .time {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #c9a84c;
+}
+
+/* ── Info value ── */
+.touch-section .paragraph {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: rgba(248, 245, 240, 0.72);
+}
+.touch-section .paragraph a {
+  color: rgba(248, 245, 240, 0.72);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.touch-section .paragraph a:hover {
+  color: #c9a84c;
+}
+
+/* ── Right: form column ── */
+.touch-section .contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── First name / Last name row ── */
+.touch-section .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ── All inputs, select, textarea ── */
+.touch-section .contact-form input,
+.touch-section .contact-form select,
+.touch-section .contact-form textarea {
+  width: 100%;
+  background: #141414;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  color: #f8f5f0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  padding: 16px 20px;
+  outline: none;
+  transition: border-color 0.3s ease, background 0.3s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* ── Placeholder text ── */
+.touch-section .contact-form input::placeholder,
+.touch-section .contact-form textarea::placeholder {
+  color: rgba(248, 245, 240, 0.28);
+  font-weight: 300;
+}
+
+/* ── Focus state ── */
+.touch-section .contact-form input:focus,
+.touch-section .contact-form select:focus,
+.touch-section .contact-form textarea:focus {
+  border-color: #c9a84c;
+  background: #1a1a1a;
+}
+
+/* ── Select custom arrow ── */
+.touch-section .contact-form select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  padding-right: 44px;
+  color: rgba(248, 245, 240, 0.28);
+}
+.touch-section .contact-form select:focus,
+.touch-section .contact-form select:valid {
+  color: #f8f5f0;
+}
+.touch-section .contact-form select option {
+  background: #1a1a1a;
+  color: #f8f5f0;
+}
+
+/* ── Textarea ── */
+.touch-section .contact-form textarea {
+  height: 130px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+/* ── Submit button ── */
+.touch-section .submit-btn {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #c9a84c;
+  border: 1px solid #c9a84c;
+  padding: 18px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 0;
+}
+.touch-section .submit-btn:hover {
+  background: transparent;
+  color: #c9a84c;
+}
+
+/* ── WhatsApp note ── */
+.touch-section .whatsapp-note {
+  font-family: 'Montserrat', sans-serif;
+  font-size:14px;
+  font-weight: 400;
+  color: rgba(248, 245, 240, 0.35);
+  text-align: center;
+  line-height: 1.6;
+}
+.touch-section .whatsapp-note a {
+  color: #c9a84c;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+.touch-section .whatsapp-note a:hover {
+  opacity: 0.7;
+}
+/* touch section ends here */
+
+
+/* ── Footer wrapper ── */
+.top-footer {
+  background: #111111;
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+/* ── Main footer grid ── */
+.footer-holder {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  padding: 80px 64px 60px;
+}
+
+/* ── Brand column ── */
+.footer-holder .footer-col:first-child h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c9a84c;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.footer-holder .footer-col:first-child h1 span {
+  color: rgba(201, 168, 76, 0.55);
+  font-weight: 400;
+}
+
+/* ── Brand description ── */
+.footer-holder .footer-col:first-child p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.85;
+  color: rgba(248, 245, 240, 0.45);
+  max-width: 280px;
+  margin-bottom: 28px;
+}
+
+/* ── Social icons row ── */
+.footer-holder .footer-col:first-child a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 50%;
+  margin-right: 8px;
+  color: #c9a84c;
+  font-size: 13px;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.footer-holder .footer-col:first-child a:hover {
+  background: #c9a84c;
+  border-color: #c9a84c;
+  color: #0a0a0a;
+}
+
+/* ── WhatsApp SVG icon sizing ── */
+.footer-holder .footer-col:first-child a svg {
+  width: 14px;
+  height: 14px;
+  stroke: #c9a84c;
+  fill: none;
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease;
+}
+.footer-holder .footer-col:first-child a:hover svg {
+  stroke: #0a0a0a;
+}
+
+/* ── Column headings ── */
+.footer-col h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #f8f5f0;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+/* ── Link lists ── */
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Footer links ── */
+.footer-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(248, 245, 240, 0.45);
+  text-decoration: none;
+  letter-spacing: 0.3px;
+  transition: color 0.3s ease, padding-left 0.3s ease;
+  display: inline-block;
+}
+.footer-links a:hover {
+  color: #c9a84c;
+  padding-left: 4px;
+}
+
+/* ── Bottom bar ── */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 64px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Copyright text ── */
+.footer-copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(248, 245, 240, 0.25);
+  letter-spacing: 0.5px;
+}
+
+/* ── Legal links ── */
+.footer-legal {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.footer-legal a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(248, 245, 240, 0.25);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+.footer-legal a:hover {
+  color: #c9a84c;
+}
+
+
+
+
+
+
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — ALL BREAKPOINTS
+   ═══════════════════════════════════════════ */
+
+
+/* ── TABLET LANDSCAPE & SMALL DESKTOP (max 1024px) ── */
+@media (max-width: 1024px) {
+
+  /* Nav */
+  nav {
+    padding: 18px 30px;
+  }
+  .nav-links {
+    gap: 24px;
+  }
+
+  /* Hero */
+  .hero-section {
+    padding: 100px 40px;
+  }
+
+  /* Collections */
+  .collection {
+    padding: 80px 40px;
+  }
+  .collection .overlay {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Products */
+  .seller-section {
+    padding: 80px 40px;
+  }
+  .seller-section .product {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Why Choose Us */
+  .choose-section {
+    padding: 80px 40px;
+  }
+  .choose-section .together {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Inspiration */
+  .inspiration-section {
+    padding: 80px 40px;
+  }
+  .inspiration-section .carrier {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Reviews */
+  .review-section {
+    padding: 80px 40px;
+  }
+  .review-section .sector {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Brands */
+  .brands {
+    padding: 60px 40px;
+  }
+  .brands-row {
+    gap: 14px 36px;
+  }
+
+  /* Transform */
+  .transform-section {
+    padding: 100px 40px;
+  }
+
+  /* Story */
+  .story-section {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 80px 40px;
+  }
+  .story-section > img {
+    max-height: 500px;
+    order: -1;
+    border-radius: 4px;
+  }
+  .story-section .tour {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Contact */
+  .touch-section {
+    padding: 80px 40px;
+  }
+  .touch-section .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+  .touch-section .private {
+    max-width: 100%;
+  }
+
+  /* Footer */
+  .footer-holder {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 60px 40px 40px;
+  }
+  .footer-bottom {
+    padding: 20px 40px;
+  }
+
+  /* Cart */
+  .cart-panel {
+    width: 380px;
+  }
+}
+
+
+/* ── TABLET PORTRAIT (max 768px) ── */
+@media (max-width: 768px) {
+
+  /* Nav — hide links, show hamburger */
+  .nav-links {
+    display: none;
+  }
+  .nav-cta {
+    display: none;
+  }
+  nav {
+    padding: 16px 24px;
+  }
+  nav h1 {
+    font-size: 19px;
+  }
+
+  /* Hero */
+  .hero-section {
+    padding: 100px 24px 80px;
+  }
+  .feed {
+    font-size: clamp(36px, 8vw, 56px);
+  }
+  .hero-section > p {
+    font-size: 15px;
+  }
+  .home {
+    font-size: 10px;
+  }
+
+  /* Marquee */
+  .marquee-inner span {
+    font-size: 9px;
+    margin: 0 6px;
+  }
+
+  /* Collections */
+  .collection {
+    padding: 70px 24px;
+  }
+  .collection .overlay {
+    grid-template-columns: 1fr;
+  }
+  .collection .overlay > div {
+    aspect-ratio: 16 / 10;
+  }
+
+  /* Products */
+  .seller-section {
+    padding: 70px 24px;
+  }
+  .seller-section .product {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Why Choose Us */
+  .choose-section {
+    padding: 70px 24px;
+  }
+  .choose-section .together {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Inspiration */
+  .inspiration-section {
+    padding: 70px 24px;
+  }
+  .inspiration-section .carrier {
+    grid-template-columns: 1fr;
+  }
+  .inspiration-section .join {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Reviews */
+  .review-section {
+    padding: 70px 24px;
+  }
+  .review-section .sector {
+    grid-template-columns: 1fr;
+  }
+
+  /* Brands */
+  .brands {
+    padding: 56px 24px;
+  }
+  .brand-logo {
+    font-size: 18px;
+  }
+  .brands-row {
+    gap: 14px 28px;
+  }
+
+  /* Transform */
+  .transform-section {
+    padding: 80px 24px;
+  }
+  .transform-section .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .transform-section .btn-primary,
+  .transform-section .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  /* Story */
+  .story-section {
+    padding: 70px 24px;
+    gap: 40px;
+  }
+  .story-section .craft {
+    font-size: clamp(32px, 7vw, 48px);
+  }
+  .story-section .tour {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .story-section .btn-primary {
+    align-self: stretch;
+    text-align: center;
+  }
+
+  /* Contact */
+  .touch-section {
+    padding: 70px 24px;
+  }
+  .touch-section .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  /* Footer */
+  .footer-holder {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 56px 24px 40px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    padding: 20px 24px;
+  }
+  .footer-legal {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  /* Cart */
+  .cart-panel {
+    width: 100vw;
+  }
+  .cart-header {
+    padding: 22px 24px;
+  }
+  .cart-body {
+    padding: 20px 24px;
+  }
+  .cart-footer {
+    padding: 20px 24px 28px;
+  }
+}
+
+
+
+/* ── Responsive ── */
+@media (max-width: 560px) {
+  .whatsapp-float {
+    bottom: 24px;
+    right: 24px;
+    width: 52px;
+    height: 52px;
+  }
+  .whatsapp-float svg {
+    width: 26px;
+    height: 26px;
+  }
+  .whatsapp-tooltip {
+    display: none;
+  }
+}
+
+
+/* ── MOBILE (max 560px) ── */
+@media (max-width: 560px) {
+
+  /* Hero */
+  .hero-section {
+    padding: 90px 20px 70px;
+    text-align: center;
+  }
+  .feed {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+  .hero-section > p {
+    font-size: 14px;
+  }
+  .hero-section > div {
+    flex-direction: column;
+    width: 100%;
+  }
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Collections */
+  .collection .overlay {
+    grid-template-columns: 1fr;
+  }
+
+  /* Products */
+  .seller-section .product {
+    grid-template-columns: 1fr;
+  }
+
+  /* Why Choose Us */
+  .choose-section .together {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .choose-section .along {
+    padding: 28px 16px;
+  }
+  .choose-section .us {
+    font-size: 12px;
+  }
+
+  /* Inspiration */
+  .inspiration-section .carrier {
+    grid-template-columns: 1fr;
+  }
+  .inspiration-section .join {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Reviews */
+  .review-section .sector {
+    grid-template-columns: 1fr;
+  }
+  .review-section .buck {
+    padding: 28px 24px;
+  }
+
+  /* Brands */
+  .brands-row {
+    gap: 12px 20px;
+  }
+  .brand-logo {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  /* Transform */
+  .transform-section {
+    padding: 70px 20px;
+  }
+
+  /* Story */
+  .story-section {
+    padding: 70px 20px;
+  }
+  .story-section .tour {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .story-section .percent {
+    font-size: 32px;
+  }
+  .story-section .satisfy {
+    font-size: 8px;
+  }
+
+  /* Contact */
+  .touch-section {
+    padding: 70px 20px;
+  }
+  .touch-section .form-row {
+    grid-template-columns: 1fr;
+  }
+  .touch-section .open {
+    font-size: 19px;
+  }
+  .touch-section .private {
+    font-size: 13px;
+  }
+
+  /* Footer */
+  .footer-holder {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 48px 20px 36px;
+  }
+  .footer-holder .footer-col:first-child p {
+    max-width: 100%;
+  }
+  .footer-bottom {
+    padding: 18px 20px;
+  }
+}
+
+
+/* ── SMALL MOBILE (max 400px) ── */
+@media (max-width: 400px) {
+
+  nav h1 {
+    font-size: 15px;
+    letter-spacing: 2px;
+  }
+
+  .feed {
+    font-size: 30px;
+  }
+
+  .choose-section .together {
+    grid-template-columns: 1fr;
+  }
+
+  .seller-section .product {
+    grid-template-columns: 1fr;
+  }
+
+  .story-section .tour {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .brands-row {
+    gap: 10px 16px;
+  }
+  .brand-logo {
+    font-size: 14px;
+  }
+
+  .cart-item {
+    grid-template-columns: 60px 1fr auto;
+    gap: 12px;
+  }
+  .cart-item-img {
+    width: 60px;
+    height: 60px;
+  }
+  .cart-item-name {
+    font-size: 14px;
+  }
+}
+
+
+
