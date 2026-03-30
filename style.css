@@ -1,10 +1,13 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-nav{
+/* ═══════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════ */
+nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +43,7 @@ nav h1 span {
 }
 
 .nav-links li a {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -69,11 +72,11 @@ nav h1 span {
 }
 
 .nav-cta {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
+  font-size: 12px;
+  font-weight: bolder;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: #0a0a0a;
+  color: white;
   background: #c9a84c;
   border: 1px solid #c9a84c;
   padding: 12px 24px;
@@ -136,7 +139,7 @@ nav h1 span {
   transform: scale(1);
 }
 
-/* ── Dark overlay behind panel ── */
+/* ── Dark overlay behind cart panel ── */
 .cart-overlay {
   position: fixed;
   inset: 0;
@@ -154,8 +157,7 @@ nav h1 span {
 /* ── Sliding cart panel ── */
 .cart-panel {
   position: fixed;
-  top: 0;
-  right: 0;
+  top: 0; right: 0;
   width: 420px;
   max-width: 100vw;
   height: 100vh;
@@ -215,15 +217,9 @@ nav h1 span {
   overflow-y: auto;
   padding: 24px 32px;
 }
-.cart-body::-webkit-scrollbar {
-  width: 3px;
-}
-.cart-body::-webkit-scrollbar-track {
-  background: transparent;
-}
-.cart-body::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 76, 0.3);
-}
+.cart-body::-webkit-scrollbar { width: 3px; }
+.cart-body::-webkit-scrollbar-track { background: transparent; }
+.cart-body::-webkit-scrollbar-thumb { background: rgba(201, 168, 76, 0.3); }
 
 /* ── Empty state ── */
 .cart-empty {
@@ -271,11 +267,8 @@ nav h1 span {
   padding: 20px 0;
   border-bottom: 1px solid rgba(201, 168, 76, 0.1);
 }
-.cart-item:last-child {
-  border-bottom: none;
-}
+.cart-item:last-child { border-bottom: none; }
 
-/* ── Item thumbnail ── */
 .cart-item-img {
   width: 72px;
   height: 72px;
@@ -283,7 +276,6 @@ nav h1 span {
   filter: brightness(0.85);
 }
 
-/* ── Item info ── */
 .cart-item-info {
   display: flex;
   flex-direction: column;
@@ -311,7 +303,6 @@ nav h1 span {
   color: #c9a84c;
 }
 
-/* ── Quantity + remove controls ── */
 .cart-item-controls {
   display: flex;
   flex-direction: column;
@@ -321,7 +312,6 @@ nav h1 span {
 .cart-qty {
   display: flex;
   align-items: center;
-  gap: 0;
   border: 1px solid rgba(201, 168, 76, 0.25);
 }
 .cart-qty button {
@@ -339,9 +329,7 @@ nav h1 span {
   transition: background 0.2s ease;
   line-height: 1;
 }
-.cart-qty button:hover {
-  background: rgba(201, 168, 76, 0.12);
-}
+.cart-qty button:hover { background: rgba(201, 168, 76, 0.12); }
 .cart-qty span {
   width: 32px;
   text-align: center;
@@ -363,9 +351,7 @@ nav h1 span {
   transition: color 0.3s ease;
   padding: 0;
 }
-.cart-remove:hover {
-  color: #c9a84c;
-}
+.cart-remove:hover { color: #c9a84c; }
 
 /* ── Cart footer ── */
 .cart-footer {
@@ -442,247 +428,20 @@ nav h1 span {
   border-color: rgba(201, 168, 76, 0.3);
 }
 
+.menu-icon{
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+}
 /* nav ends here */
 
 
 
-/* ── Hamburger button ── */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: 1px solid rgba(201, 168, 76, 0.35);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: border-color 0.3s ease, background 0.3s ease;
-  flex-shrink: 0;
-}
-.hamburger:hover {
-  border-color: #c9a84c;
-  background: rgba(201, 168, 76, 0.08);
-}
-.hamburger span {
-  display: block;
-  width: 16px;
-  height: 1px;
-  background: #c9a84c;
-  transition: all 0.35s ease;
-  transform-origin: center;
-}
-
-/* Hamburger animates to X when open */
-.hamburger.open span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-.hamburger.open span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-/* ── Dark overlay ── */
-.mobile-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 2000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.mobile-overlay.open {
-  opacity: 1;
-  pointer-events: all;
-}
-
-/* ── Slide-in panel ── */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 320px;
-  max-width: 100vw;
-  height: 100vh;
-  background: #0a0a0a;
-  border-left: 1px solid rgba(201, 168, 76, 0.2);
-  z-index: 2001;
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  transform: translateX(100%);
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow-y: auto;
-}
-.mobile-menu.open {
-  transform: translateX(0);
-}
-
-/* ── Close button ── */
-.mobile-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s ease, border-color 0.3s ease;
-  flex-shrink: 0;
-}
-.mobile-close:hover {
-  background: rgba(201, 168, 76, 0.1);
-  border-color: #c9a84c;
-}
-.mobile-close svg {
-  width: 15px;
-  height: 15px;
-  stroke: #c9a84c;
-}
-
-/* ── Brand name at top of menu ── */
-.mobile-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #c9a84c;
-  padding: 36px 32px 32px;
-  border-bottom: 1px solid rgba(201, 168, 76, 0.12);
-}
-.mobile-brand span {
-  color: rgba(201, 168, 76, 0.5);
-  font-weight: 400;
-}
-
-/* ── Nav links ── */
-.mobile-nav {
-  display: flex;
-  flex-direction: column;
-  padding: 16px 0;
-  flex: 1;
-}
-
-.mobile-link {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(248, 245, 240, 0.65);
-  text-decoration: none;
-  padding: 18px 32px;
-  border-bottom: 1px solid rgba(201, 168, 76, 0.07);
-  transition: color 0.3s ease,
-              background 0.3s ease,
-              padding-left 0.3s ease;
-  position: relative;
-}
-.mobile-link::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  background: #c9a84c;
-  transition: width 0.3s ease;
-}
-.mobile-link:hover {
-  color: #c9a84c;
-  background: rgba(201, 168, 76, 0.04);
-  padding-left: 40px;
-}
-.mobile-link:hover::before {
-  width: 2px;
-}
-
-/* ── Divider ── */
-.mobile-divider {
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(201, 168, 76, 0.3),
-    transparent
-  );
-  margin: 8px 24px;
-}
-
-/* ── Bottom action buttons ── */
-.mobile-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 20px 24px 40px;
-}
-
-/* Book Consultation button */
-.mobile-cta {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #0a0a0a;
-  background: #c9a84c;
-  border: 1px solid #c9a84c;
-  padding: 15px 24px;
-  text-align: center;
-  text-decoration: none;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-.mobile-cta:hover {
-  background: transparent;
-  color: #c9a84c;
-}
-
-/* WhatsApp button */
-.mobile-whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: #25D366;
-  background: transparent;
-  border: 1px solid rgba(37, 211, 102, 0.3);
-  padding: 15px 24px;
-  text-decoration: none;
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-.mobile-whatsapp:hover {
-  background: rgba(37, 211, 102, 0.08);
-  border-color: #25D366;
-}
-.mobile-whatsapp svg {
-  width: 16px;
-  height: 16px;
-  fill: #25D366;
-  flex-shrink: 0;
-}
-
-/* ── Only show hamburger on mobile ── */
 
 
-
+/* ═══════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════ */
 .hero-section {
   position: relative;
   background-image: url(images/hero-dark-marble.png);
@@ -701,7 +460,22 @@ nav h1 span {
   overflow: hidden;
 }
 
-/* Dark overlay so text stays readable over the image */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background-image: url(images/hero-dark-marble.png);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  animation: heroZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
 .hero-section::before {
   content: '';
   position: absolute;
@@ -709,16 +483,15 @@ nav h1 span {
   background: linear-gradient(
     to bottom,
     rgba(10, 10, 10, 0.60) 0%,
-    rgba(10, 10, 10, 0.75) 50%,
+    rgba(10, 10, 10, 0.78) 50%,
     rgba(10, 10, 10, 0.60) 100%
   );
-  z-index: 0;
+  z-index: 1;
 }
 
-/* Every direct child sits above the overlay */
 .hero-section > * {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .home {
@@ -731,21 +504,30 @@ nav h1 span {
   text-transform: uppercase;
   color: #c9a84c;
   margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
 }
 .home::before {
   content: '';
   display: block;
-  width: 36px;
+  width: 0;
   height: 1px;
   background: #c9a84c;
+  animation: lineGrow 0.8s ease 1s forwards;
 }
-/* Mirror line on the right side for centered layout */
 .home::after {
   content: '';
   display: block;
-  width: 36px;
+  width: 0;
   height: 1px;
   background: #c9a84c;
+  animation: lineGrow 0.8s ease 1s forwards;
+}
+
+@keyframes lineGrow {
+  0%   { width: 0px; }
+  100% { width: 36px; }
 }
 
 .feed {
@@ -756,6 +538,9 @@ nav h1 span {
   color: #f8f5f0;
   margin-bottom: 24px;
   max-width: 720px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
 }
 .feed em {
   font-style: italic;
@@ -763,12 +548,15 @@ nav h1 span {
 }
 
 .hero-section > p {
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 1.5;
   color: rgba(248, 245, 240, 0.65);
   max-width: 460px;
   margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.9s forwards;
 }
 
 .hero-section > div {
@@ -777,6 +565,14 @@ nav h1 span {
   justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+}
+
+@keyframes fadeUp {
+  0%   { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .btn-primary {
@@ -791,11 +587,29 @@ nav h1 span {
   padding: 15px 38px;
   text-decoration: none;
   display: inline-block;
-  transition: background 0.3s ease, color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s ease, color 0.35s ease,
+              transform 0.2s ease, box-shadow 0.35s ease;
 }
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+  transition: left 0.5s ease;
+}
+.btn-primary:hover::before { left: 160%; }
 .btn-primary:hover {
   background: transparent;
   color: #c9a84c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 168, 76, 0.25);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .btn-secondary {
@@ -810,64 +624,148 @@ nav h1 span {
   padding: 15px 38px;
   text-decoration: none;
   display: inline-block;
-  transition: border-color 0.3s ease, color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.35s ease, color 0.35s ease,
+              transform 0.2s ease, box-shadow 0.35s ease;
+}
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: rgba(201, 168, 76, 0.08);
+  transition: left 0.4s ease;
+  z-index: 0;
+}
+.btn-secondary:hover::before { left: 0; }
+.btn-secondary {
+  position: relative;
+  z-index: 1;
 }
 .btn-secondary:hover {
   border-color: #c9a84c;
   color: #c9a84c;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 168, 76, 0.12);
 }
-/* section ends here */
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Floating particles ── */
+.hero-section .particle {
+  position: absolute;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: #c9a84c;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.hero-section .particle:nth-child(1) { top: 20%; left: 15%; animation: float1 8s ease-in-out 2s infinite; }
+.hero-section .particle:nth-child(2) { top: 60%; left: 80%; width: 3px; height: 3px; animation: float2 10s ease-in-out 3s infinite; }
+.hero-section .particle:nth-child(3) { top: 80%; left: 25%; animation: float1 12s ease-in-out 1s infinite; }
+.hero-section .particle:nth-child(4) { top: 35%; left: 70%; animation: float2 9s ease-in-out 4s infinite; }
+.hero-section .particle:nth-child(5) { top: 70%; left: 60%; animation: float1 11s ease-in-out 0.5s infinite; }
+
+@keyframes float1 {
+  0%   { opacity: 0;   transform: translateY(0px) scale(1); }
+  20%  { opacity: 0.6; }
+  50%  { opacity: 0.3; transform: translateY(-40px) scale(1.5); }
+  80%  { opacity: 0.6; }
+  100% { opacity: 0;   transform: translateY(-80px) scale(0.5); }
+}
+@keyframes float2 {
+  0%   { opacity: 0;   transform: translateY(0) translateX(0); }
+  25%  { opacity: 0.5; transform: translateY(-20px) translateX(10px); }
+  50%  { opacity: 0.2; transform: translateY(-50px) translateX(-8px); }
+  75%  { opacity: 0.5; transform: translateY(-30px) translateX(12px); }
+  100% { opacity: 0;   transform: translateY(-90px) translateX(0); }
+}
+
+/* ── Scroll hint ── */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  opacity: 0;
+  animation: fadeUp 1s ease 2s forwards;
+}
+.hero-scroll-hint span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(201, 168, 76, 0.55);
+}
+.hero-scroll-hint .scroll-line {
+  width: 1px; height: 0;
+  background: linear-gradient(to bottom, #c9a84c, transparent);
+  animation: scrollLine 1.5s ease 2.5s infinite;
+}
+@keyframes scrollLine {
+  0%   { height: 0;    opacity: 1; }
+  60%  { height: 40px; opacity: 1; }
+  100% { height: 40px; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section::after, .home, .feed,
+  .hero-section > p, .hero-section > div,
+  .hero-scroll-hint, .hero-section .particle {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .home::before, .home::after {
+    animation: none;
+    width: 36px;
+  }
+}
 
 
-
-/* ── WhatsApp Floating Button ── */
+/* ═══════════════════════════════════════════
+   WHATSAPP FLOAT
+   ═══════════════════════════════════════════ */
 .whatsapp-float {
   position: fixed;
-  bottom: 36px;
-  right: 36px;
+  bottom: 36px; right: 36px;
   z-index: 9999;
-  width: 58px;
-  height: 58px;
+  width: 58px; height: 58px;
   background: #25D366;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  box-shadow:
-    0 4px 20px rgba(37, 211, 102, 0.4),
-    0 2px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease,
-              box-shadow 0.3s ease,
-              background 0.3s ease;
-
-  /* Pulse ring animation */
-  animation: whatsapp-pulse 2.5s ease-in-out infinite;
+  animation:
+    whatsapp-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1s both,
+    whatsapp-pulse 2.5s ease-in-out 1.6s infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
-
 .whatsapp-float:hover {
   transform: scale(1.12);
   background: #20c35a;
-  box-shadow:
-    0 6px 28px rgba(37, 211, 102, 0.6),
-    0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.6), 0 4px 12px rgba(0,0,0,0.3);
   animation: none;
 }
-
-/* ── WhatsApp SVG icon ── */
 .whatsapp-float svg {
-  width: 30px;
-  height: 30px;
+  width: 30px; height: 30px;
   fill: #ffffff;
   flex-shrink: 0;
 }
-
-/* ── Tooltip label ── */
 .whatsapp-tooltip {
   position: absolute;
-  right: 68px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 68px; top: 50%;
+  transform: translateY(-50%) translateX(6px);
   background: #111111;
   color: #f8f5f0;
   font-family: 'Montserrat', sans-serif;
@@ -880,67 +778,35 @@ nav h1 span {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(-50%) translateX(6px);
 }
-
-/* Tooltip arrow pointing right */
 .whatsapp-tooltip::after {
   content: '';
   position: absolute;
-  right: -6px;
-  top: 50%;
+  right: -6px; top: 50%;
   transform: translateY(-50%);
   border-width: 5px 0 5px 6px;
   border-style: solid;
   border-color: transparent transparent transparent #111111;
 }
-
 .whatsapp-float:hover .whatsapp-tooltip {
   opacity: 1;
   transform: translateY(-50%) translateX(0);
 }
 
-/* ── Pulse ring animation ── */
 @keyframes whatsapp-pulse {
-  0% {
-    box-shadow:
-      0 4px 20px rgba(37, 211, 102, 0.4),
-      0 0 0 0 rgba(37, 211, 102, 0.5);
-  }
-  50% {
-    box-shadow:
-      0 4px 20px rgba(37, 211, 102, 0.4),
-      0 0 0 14px rgba(37, 211, 102, 0);
-  }
-  100% {
-    box-shadow:
-      0 4px 20px rgba(37, 211, 102, 0.4),
-      0 0 0 0 rgba(37, 211, 102, 0);
-  }
+  0%   { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.5); }
+  50%  { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0); }
+  100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0); }
 }
-
-/* ── Entrance animation on page load ── */
-.whatsapp-float {
-  animation:
-    whatsapp-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1s both,
-    whatsapp-pulse 2.5s ease-in-out 1.6s infinite;
-}
-
 @keyframes whatsapp-enter {
-  0% {
-    opacity: 0;
-    transform: scale(0) rotate(-180deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
+  0%   { opacity: 0; transform: scale(0) rotate(-180deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
 }
-/* whatsApp logo ends here */
 
 
-
-
+/* ═══════════════════════════════════════════
+   MARQUEE
+   ═══════════════════════════════════════════ */
 .marquee-strip {
   background: #c9a84c;
   padding: 16px 0;
@@ -948,12 +814,10 @@ nav h1 span {
   white-space: nowrap;
   width: 100%;
 }
-
 .marquee-inner {
   display: inline-block;
   animation: marquee 30s linear infinite;
 }
-
 .marquee-inner span {
   display: inline-block;
   font-family: 'Montserrat', sans-serif;
@@ -964,8 +828,6 @@ nav h1 span {
   color: #0a0a0a;
   margin: 0 8px;
 }
-
-/* Diamond separator between each item */
 .marquee-inner span::after {
   content: '◆';
   display: inline-block;
@@ -974,25 +836,21 @@ nav h1 span {
   vertical-align: middle;
   opacity: 0.5;
 }
-
-.marquee-inner span:last-child::after {
-  display: none;
-}
+.marquee-inner span:last-child::after { display: none; }
 
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-/* scroll section ends here */
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   COLLECTIONS
+   ═══════════════════════════════════════════ */
 .collection {
   background: black;
   padding: 100px 64px;
 }
-
-/* ── "Our Collections" tag ── */
 .collection .top {
   display: inline-flex;
   align-items: center;
@@ -1008,12 +866,9 @@ nav h1 span {
 .collection .top::before {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
 }
-
-/* ── Main heading ── */
 .collection .home {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(32px, 4vw, 56px);
@@ -1021,13 +876,18 @@ nav h1 span {
   line-height: 1.1;
   color: #f8f5f0;
   margin-bottom: 16px;
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 .collection .home em {
   font-style: italic;
   color: #e8cc7e;
 }
-
-/* ── Subtitle ── */
+.collection .home::before,
+.collection .home::after {
+  display: none;
+}
 .collection .open {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
@@ -1037,26 +897,19 @@ nav h1 span {
   max-width: 480px;
   margin-bottom: 60px;
 }
-
-/* ── Three-column card grid ── */
 .collection .overlay {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
 }
-
-/* ── Each card ── */
 .collection .overlay > div {
   position: relative;
   overflow: hidden;
   cursor: pointer;
   aspect-ratio: 3 / 4;
 }
-
-/* ── Card image ── */
 .collection .overlay > div img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   display: block;
   filter: brightness(0.65);
@@ -1066,32 +919,21 @@ nav h1 span {
   transform: scale(1.06);
   filter: brightness(0.45);
 }
-
-/* ── Gradient over image so text reads clearly ── */
 .collection .overlay > div::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.15) 55%,
-    transparent 100%
-  );
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
   pointer-events: none;
 }
-
-/* ── Text block pinned to bottom ── */
 .collection-tag,
 .collection-name,
 .collection-link {
   position: absolute;
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   z-index: 2;
   padding: 0 28px;
 }
-
 .collection-tag {
   bottom: 100px;
   font-family: 'Montserrat', sans-serif;
@@ -1101,7 +943,6 @@ nav h1 span {
   text-transform: uppercase;
   color: #c9a84c;
 }
-
 .collection-name {
   bottom: 64px;
   font-family: 'Cormorant Garamond', serif;
@@ -1110,7 +951,6 @@ nav h1 span {
   color: #f8f5f0;
   line-height: 1.2;
 }
-
 .collection-link {
   bottom: 28px;
   font-family: 'Montserrat', sans-serif;
@@ -1128,24 +968,21 @@ nav h1 span {
   transition: opacity 0.4s ease, transform 0.4s ease, color 0.3s ease;
   padding: 0 28px;
 }
-.collection-link::after {
-  content: '→';
-  font-size: 12px;
-}
+.collection-link::after { content: '→'; font-size: 12px; }
 .collection .overlay > div:hover .collection-link {
   opacity: 1;
   transform: translateY(0);
   color: #c9a84c;
 }
-/* collection ends here */
 
-/* ── Section wrapper ── */
+
+/* ═══════════════════════════════════════════
+   PRODUCTS
+   ═══════════════════════════════════════════ */
 .seller-section {
   background: #0a0a0a;
   padding: 100px 64px;
 }
-
-/* ── "Best Sellers" tag ── */
 .seller-section .best {
   display: inline-flex;
   align-items: center;
@@ -1161,12 +998,9 @@ nav h1 span {
 .seller-section .best::before {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
 }
-
-/* ── "Featured Products" heading ── */
 .seller-section .features {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(32px, 4vw, 56px);
@@ -1175,19 +1009,12 @@ nav h1 span {
   color: #f8f5f0;
   margin-bottom: 60px;
 }
-.seller-section .features em {
-  font-style: italic;
-  color: #e8cc7e;
-}
-
-/* ── 4-column product grid ── */
+.seller-section .features em { font-style: italic; color: #e8cc7e; }
 .seller-section .product {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
 }
-
-/* ── Each product card ── */
 .seller-section .holder {
   position: relative;
   background: black;
@@ -1195,11 +1022,7 @@ nav h1 span {
   cursor: pointer;
   transition: transform 0.3s ease;
 }
-.seller-section .holder:hover {
-  transform: translateY(-4px);
-}
-
-/* ── Product image ── */
+.seller-section .holder:hover { transform: translateY(-4px); }
 .seller-section .holder img {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -1208,16 +1031,10 @@ nav h1 span {
   filter: brightness(0.85);
   transition: transform 0.6s ease, filter 0.4s ease;
 }
-.seller-section .holder:hover img {
-  transform: scale(1.05);
-  filter: brightness(0.7);
-}
-
-/* ── Badge (New Arrival / Best Seller / Luxury) ── */
+.seller-section .holder:hover img { transform: scale(1.05); filter: brightness(0.7); }
 .seller-section .tag {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 16px; left: 16px;
   font-family: 'Montserrat', sans-serif;
   font-size: 8px;
   font-weight: 700;
@@ -1228,13 +1045,7 @@ nav h1 span {
   padding: 5px 12px;
   z-index: 2;
 }
-
-/* ── Text block below image ── */
-.seller-section .list {
-  padding: 20px 20px 24px;
-}
-
-/* ── Category label ── */
+.seller-section .list { padding: 20px 20px 24px; }
 .seller-section .name {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
@@ -1244,8 +1055,6 @@ nav h1 span {
   color: #888;
   margin-bottom: 8px;
 }
-
-/* ── Product title ── */
 .seller-section .font {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
@@ -1254,8 +1063,6 @@ nav h1 span {
   line-height: 1.3;
   margin-bottom: 12px;
 }
-
-/* ── Price row ── */
 .seller-section .price {
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
@@ -1270,8 +1077,6 @@ nav h1 span {
   text-decoration: line-through;
   margin-left: 8px;
 }
-
-/* ── Add to Cart button ── */
 .seller-section .btn2 {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
@@ -1291,18 +1096,17 @@ nav h1 span {
   color: #0a0a0a;
   border-color: #c9a84c;
 }
-/* seller section ends here */
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   WHY CHOOSE US
+   ═══════════════════════════════════════════ */
 .choose-section {
   background: black;
   padding: 100px 64px;
   border-top: 1px solid rgba(201, 168, 76, 0.15);
   border-bottom: 1px solid rgba(201, 168, 76, 0.15);
 }
-
-/* ── "Why Choose Us" tag ── */
 .choose-section .expert {
   display: inline-flex;
   align-items: center;
@@ -1318,12 +1122,9 @@ nav h1 span {
 .choose-section .expert::before {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
 }
-
-/* ── "Committed to Excellence" heading ── */
 .choose-section .feature {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(32px, 4vw, 56px);
@@ -1332,20 +1133,13 @@ nav h1 span {
   color: #f8f5f0;
   margin-bottom: 60px;
 }
-.choose-section .feature em {
-  font-style: italic;
-  color: #e8cc7e;
-}
-
-/* ── 5-column grid ── */
+.choose-section .feature em { font-style: italic; color: #e8cc7e; }
 .choose-section .together {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 1px;
   background: rgba(201, 168, 76, 0.1);
 }
-
-/* ── Each feature card ── */
 .choose-section .along {
   background: #111111;
   padding: 40px 28px;
@@ -1354,16 +1148,10 @@ nav h1 span {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
 }
-.choose-section .along:hover {
-  background: #1a1a1a;
-}
-
-/* ── Icon circle ── */
+.choose-section .along:hover { background: #1a1a1a; }
 .choose-section .guide {
-  width: 52px;
-  height: 52px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   border: 1px solid rgba(201, 168, 76, 0.35);
   display: flex;
@@ -1377,8 +1165,6 @@ nav h1 span {
   border-color: #c9a84c;
   background: rgba(201, 168, 76, 0.08);
 }
-
-/* ── Feature title ── */
 .choose-section .best {
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
@@ -1387,8 +1173,6 @@ nav h1 span {
   margin-bottom: 12px;
   line-height: 1.2;
 }
-
-/* ── Feature description ── */
 .choose-section .us {
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
@@ -1397,16 +1181,15 @@ nav h1 span {
   color: rgba(248, 245, 240, 0.5);
   text-align: center;
 }
-/* choose section ends here */
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   INSPIRATION
+   ═══════════════════════════════════════════ */
 .inspiration-section {
   background: #0a0a0a;
   padding: 100px 64px;
 }
-
-/* ── "Inspiration Gallery" tag ── */
 .inspiration-section .gallery {
   display: inline-flex;
   align-items: center;
@@ -1422,12 +1205,9 @@ nav h1 span {
 .inspiration-section .gallery::before {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
 }
-
-/* ── "Living Beautifully" heading ── */
 .inspiration-section .beauty {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(32px, 4vw, 56px);
@@ -1436,12 +1216,7 @@ nav h1 span {
   color: #f8f5f0;
   margin-bottom: 14px;
 }
-.inspiration-section .beauty em {
-  font-style: italic;
-  color: #e8cc7e;
-}
-
-/* ── Subtitle ── */
+.inspiration-section .beauty em { font-style: italic; color: #e8cc7e; }
 .inspiration-section .para {
   font-family: 'Montserrat', sans-serif;
   font-size: 19px;
@@ -1451,62 +1226,39 @@ nav h1 span {
   max-width: 480px;
   margin-bottom: 56px;
 }
-
-/* ── Three-column image grid ── */
 .inspiration-section .carrier {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2px;
 }
-
-/* ── Each image card ── */
 .inspiration-section .join {
   position: relative;
   overflow: hidden;
   cursor: pointer;
   aspect-ratio: 4 / 5;
 }
-
-/* ── Image ── */
 .inspiration-section .join img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   display: block;
   filter: brightness(0.65);
   transition: transform 0.8s ease, filter 0.5s ease;
 }
-.inspiration-section .join:hover img {
-  transform: scale(1.06);
-  filter: brightness(0.45);
-}
-
-/* ── Dark gradient over image bottom ── */
+.inspiration-section .join:hover img { transform: scale(1.06); filter: brightness(0.45); }
 .inspiration-section .join::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
   pointer-events: none;
   z-index: 1;
 }
-
-/* ── Text overlay pinned to bottom ── */
 .inspiration-section .rock {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   padding: 28px 28px 32px;
   z-index: 2;
 }
-
-/* ── Category label ── */
 .inspiration-section .classy {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
@@ -1516,8 +1268,6 @@ nav h1 span {
   color: #c9a84c;
   margin-bottom: 8px;
 }
-
-/* ── Card title ── */
 .inspiration-section .suit {
   font-family: 'Cormorant Garamond', serif;
   font-size: 22px;
@@ -1526,19 +1276,16 @@ nav h1 span {
   line-height: 1.25;
   transition: color 0.3s ease;
 }
-.inspiration-section .join:hover .suit {
-  color: #e8cc7e;
-}
-/* inspiration section ends here */
+.inspiration-section .join:hover .suit { color: #e8cc7e; }
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   REVIEWS
+   ═══════════════════════════════════════════ */
 .review-section {
   background: #111111;
   padding: 100px 64px;
 }
-
-/* ── "Client Reviews" tag ── */
 .review-section .viewer {
   display: inline-flex;
   align-items: center;
@@ -1554,12 +1301,9 @@ nav h1 span {
 .review-section .viewer::before {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
 }
-
-/* ── "Words from Our Clients" heading ── */
 .review-section .honey {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(32px, 4vw, 56px);
@@ -1568,35 +1312,22 @@ nav h1 span {
   color: #f8f5f0;
   margin-bottom: 56px;
 }
-.review-section .honey em {
-  font-style: italic;
-  color: #e8cc7e;
-}
-
-/* ── Three-column card grid ── */
+.review-section .honey em { font-style: italic; color: #e8cc7e; }
 .review-section .sector {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
-
-/* ── Each review card ── */
 .review-section .buck {
   background: #0a0a0a;
   padding: 40px 36px;
   display: flex;
   flex-direction: column;
-  gap: 0;
   border-bottom: 2px solid transparent;
   transition: border-color 0.3s ease, background 0.3s ease;
   position: relative;
 }
-.review-section .buck:hover {
-  border-color: #c9a84c;
-  background: #141414;
-}
-
-/* ── Large decorative opening quote ── */
+.review-section .buck:hover { border-color: #c9a84c; background: #141414; }
 .review-section .buck::before {
   content: '\201C';
   font-family: 'Cormorant Garamond', serif;
@@ -1607,16 +1338,12 @@ nav h1 span {
   display: block;
   margin-bottom: 20px;
 }
-
-/* ── Star rating ── */
 .review-section .star {
   font-size: 12px;
   letter-spacing: 3px;
   color: #c9a84c;
   margin-bottom: 20px;
 }
-
-/* ── Review body text ── */
 .review-section .text {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
@@ -1627,8 +1354,6 @@ nav h1 span {
   margin-bottom: 32px;
   flex: 1;
 }
-
-/* ── Divider line above author ── */
 .review-section .names {
   padding-top: 24px;
   border-top: 1px solid rgba(201, 168, 76, 0.15);
@@ -1639,8 +1364,6 @@ nav h1 span {
   letter-spacing: 0.5px;
   margin-bottom: 4px;
 }
-
-/* ── Location / role ── */
 .review-section .location {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
@@ -1649,18 +1372,17 @@ nav h1 span {
   text-transform: uppercase;
   color: #c9a84c;
 }
-/* review section ends here */
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   BRANDS
+   ═══════════════════════════════════════════ */
 .brands {
   background: black;
   padding: 72px 64px;
   border-top: 1px solid rgba(201, 168, 76, 0.12);
   border-bottom: 1px solid rgba(201, 168, 76, 0.12);
 }
-
-/* ── "Trusted International Brands" label ── */
 .brands-title {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
@@ -1671,8 +1393,6 @@ nav h1 span {
   text-align: center;
   margin-bottom: 48px;
 }
-
-/* ── Logo row ── */
 .brands-row {
   display: flex;
   align-items: center;
@@ -1680,8 +1400,6 @@ nav h1 span {
   flex-wrap: wrap;
   gap: 16px 56px;
 }
-
-/* ── Each brand name ── */
 .brand-logo {
   font-family: 'Cormorant Garamond', serif;
   font-size: 22px;
@@ -1694,30 +1412,22 @@ nav h1 span {
   position: relative;
   padding-bottom: 4px;
 }
-
-/* ── Gold underline slides in on hover ── */
 .brand-logo::after {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 50%;
+  bottom: 0; left: 50%;
   transform: translateX(-50%);
-  width: 0;
-  height: 1px;
+  width: 0; height: 1px;
   background: #c9a84c;
   transition: width 0.35s ease;
 }
-
-.brand-logo:hover {
-  color: #c9a84c;
-}
-.brand-logo:hover::after {
-  width: 100%;
-}
-/* brands ends here */
+.brand-logo:hover { color: #c9a84c; }
+.brand-logo:hover::after { width: 100%; }
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   TRANSFORM / CTA
+   ═══════════════════════════════════════════ */
 .transform-section {
   position: relative;
   background: black;
@@ -1725,42 +1435,23 @@ nav h1 span {
   text-align: center;
   overflow: hidden;
 }
-
-/* ── Subtle radial gold glow behind content ── */
 .transform-section::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 700px;
-  height: 400px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(201, 168, 76, 0.07) 0%,
-    transparent 70%
-  );
+  width: 700px; height: 400px;
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 70%);
   pointer-events: none;
 }
-
-/* ── Gold top rule ── */
 .transform-section::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 50%;
+  top: 0; left: 50%;
   transform: translateX(-50%);
-  width: 180px;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    #c9a84c,
-    transparent
-  );
+  width: 180px; height: 1px;
+  background: linear-gradient(to right, transparent, #c9a84c, transparent);
 }
-
-/* ── "Transform Your Home" tag ── */
 .transform-section .home {
   display: inline-flex;
   align-items: center;
@@ -1775,17 +1466,18 @@ nav h1 span {
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
+  opacity: 1;
+  transform: none;
+  animation: none;
 }
 .transform-section .home::before,
 .transform-section .home::after {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
+  animation: none;
 }
-
-/* ── Main heading ── */
 .transform-section .space {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(36px, 5vw, 68px);
@@ -1796,8 +1488,6 @@ nav h1 span {
   position: relative;
   z-index: 1;
 }
-
-/* ── Subtitle ── */
 .transform-section .book {
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
@@ -1809,8 +1499,6 @@ nav h1 span {
   position: relative;
   z-index: 1;
 }
-
-/* ── Button row ── */
 .transform-section .cta-buttons {
   display: flex;
   align-items: center;
@@ -1820,8 +1508,6 @@ nav h1 span {
   position: relative;
   z-index: 1;
 }
-
-/* ── Primary button (gold fill) ── */
 .transform-section .btn-primary {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
@@ -1836,12 +1522,7 @@ nav h1 span {
   display: inline-block;
   transition: background 0.3s ease, color 0.3s ease;
 }
-.transform-section .btn-primary:hover {
-  background: transparent;
-  color: #c9a84c;
-}
-
-/* ── Secondary button (ghost) ── */
+.transform-section .btn-primary:hover { background: transparent; color: #c9a84c; }
 .transform-section .btn-secondary {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
@@ -1856,14 +1537,12 @@ nav h1 span {
   display: inline-block;
   transition: border-color 0.3s ease, color 0.3s ease;
 }
-.transform-section .btn-secondary:hover {
-  border-color: #c9a84c;
-  color: #c9a84c;
-}
-/* transform section ends here */
+.transform-section .btn-secondary:hover { border-color: #c9a84c; color: #c9a84c; }
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   STORY
+   ═══════════════════════════════════════════ */
 .story-section {
   background: #111111;
   padding: 100px 64px;
@@ -1871,15 +1550,9 @@ nav h1 span {
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: center;
+  position: relative;
 }
-
-/* ── Left content column ── */
-.story-section .picker {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── "Our Story" tag ── */
+.story-section .picker { display: flex; flex-direction: column; }
 .story-section .headline {
   display: inline-flex;
   align-items: center;
@@ -1895,37 +1568,25 @@ nav h1 span {
 .story-section .headline::before {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
 }
-
-/* ── "Crafting Spaces of Distinction" heading ── */
 .story-section .craft {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(50px, 8.6vw, 62px);
   font-weight: 500;
   line-height: 1.1;
   color: #f8f5f0;
-  margin-bottom: 0;
 }
-.story-section .craft em {
-  font-style: italic;
-  color: #e8cc7e;
-}
-
-/* ── Gold divider under heading ── */
+.story-section .craft em { font-style: italic; color: #e8cc7e; }
 .story-section .craft::after {
   content: '';
   display: block;
-  width: 60px;
-  height: 1px;
+  width: 60px; height: 1px;
   background: #c9a84c;
   margin-top: 28px;
   margin-bottom: 28px;
 }
-
-/* ── Body paragraphs ── */
 .story-section .begin,
 .story-section .next {
   font-family: 'Montserrat', sans-serif;
@@ -1934,14 +1595,8 @@ nav h1 span {
   line-height: 1.9;
   color: rgba(248, 245, 240, 0.62);
 }
-.story-section .begin {
-  margin-bottom: 18px;
-}
-.story-section .next {
-  margin-bottom: 48px;
-}
-
-/* ── Stats grid ── */
+.story-section .begin { margin-bottom: 18px; }
+.story-section .next  { margin-bottom: 48px; }
 .story-section .tour {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1949,18 +1604,12 @@ nav h1 span {
   background: rgba(201, 168, 76, 0.12);
   margin-bottom: 48px;
 }
-
-/* ── Each stat block ── */
 .story-section .project {
   background: #111111;
   padding: 28px 20px;
   transition: background 0.3s ease;
 }
-.story-section .project:hover {
-  background: #1a1a1a;
-}
-
-/* ── Big number ── */
+.story-section .project:hover { background: #1a1a1a; }
 .story-section .percent {
   font-family: 'Cormorant Garamond', serif;
   font-size: 40px;
@@ -1969,8 +1618,6 @@ nav h1 span {
   line-height: 1;
   margin-bottom: 8px;
 }
-
-/* ── Stat label ── */
 .story-section .satisfy {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
@@ -1980,8 +1627,6 @@ nav h1 span {
   color: rgba(248, 245, 240, 0.38);
   line-height: 1.5;
 }
-
-/* ── CTA button ── */
 .story-section .btn-primary {
   font-family: 'Montserrat', sans-serif;
   font-size: 10px;
@@ -1997,15 +1642,9 @@ nav h1 span {
   align-self: flex-start;
   transition: background 0.3s ease, color 0.3s ease;
 }
-.story-section .btn-primary:hover {
-  background: transparent;
-  color: #c9a84c;
-}
-
-/* ── Right image column ── */
+.story-section .btn-primary:hover { background: transparent; color: #c9a84c; }
 .story-section > img {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   border-radius: 10%;
   max-height: 680px;
   object-fit: cover;
@@ -2013,24 +1652,16 @@ nav h1 span {
   filter: brightness(0.85);
   transition: filter 0.5s ease;
 }
-.story-section:hover > img {
-  filter: brightness(0.95);
-}
-
-/* ── Gold accent badge pinned over image ── */
-.story-section {
-  position: relative;
-}
-/* story section ends here */
+.story-section:hover > img { filter: brightness(0.95); }
 
 
-/* ── Section wrapper ── */
+/* ═══════════════════════════════════════════
+   CONTACT
+   ═══════════════════════════════════════════ */
 .touch-section {
   background: black;
   padding: 100px 64px;
 }
-
-/* ── "Get in Touch" tag ── */
 .touch-section .touch {
   display: inline-flex;
   align-items: center;
@@ -2046,12 +1677,9 @@ nav h1 span {
 .touch-section .touch::before {
   content: '';
   display: block;
-  width: 30px;
-  height: 1px;
+  width: 30px; height: 1px;
   background: #c9a84c;
 }
-
-/* ── "Visit Our Showroom" heading ── */
 .touch-section .show {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(32px, 4vw, 56px);
@@ -2060,12 +1688,7 @@ nav h1 span {
   color: #f8f5f0;
   margin-bottom: 16px;
 }
-.touch-section .show em {
-  font-style: italic;
-  color: #e8cc7e;
-}
-
-/* ── "We'd love to hear from you" subheading ── */
+.touch-section .show em { font-style: italic; color: #e8cc7e; }
 .touch-section .open {
   font-family: 'Cormorant Garamond', serif;
   font-size: 23px;
@@ -2073,8 +1696,6 @@ nav h1 span {
   color: #f8f5f0;
   margin-bottom: 12px;
 }
-
-/* ── Intro paragraph ── */
 .touch-section .private {
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
@@ -2084,22 +1705,13 @@ nav h1 span {
   max-width: 520px;
   margin-bottom: 56px;
 }
-
-/* ── Two-column grid ── */
 .touch-section .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: start;
 }
-
-/* ── Left: contact info column ── */
-.touch-section .special {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── Each info row ── */
+.touch-section .special { display: flex; flex-direction: column; }
 .touch-section .hour {
   display: flex;
   flex-direction: column;
@@ -2107,14 +1719,8 @@ nav h1 span {
   padding: 22px 0;
   border-bottom: 1px solid rgba(201, 168, 76, 0.12);
 }
-.touch-section .hour:first-child {
-  padding-top: 0;
-}
-.touch-section .hour:last-child {
-  border-bottom: none;
-}
-
-/* ── Info label ── */
+.touch-section .hour:first-child { padding-top: 0; }
+.touch-section .hour:last-child  { border-bottom: none; }
 .touch-section .time {
   font-family: 'Montserrat', sans-serif;
   font-size: 9px;
@@ -2123,8 +1729,6 @@ nav h1 span {
   text-transform: uppercase;
   color: #c9a84c;
 }
-
-/* ── Info value ── */
 .touch-section .paragraph {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
@@ -2137,25 +1741,17 @@ nav h1 span {
   text-decoration: none;
   transition: color 0.3s ease;
 }
-.touch-section .paragraph a:hover {
-  color: #c9a84c;
-}
-
-/* ── Right: form column ── */
+.touch-section .paragraph a:hover { color: #c9a84c; }
 .touch-section .contact-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-
-/* ── First name / Last name row ── */
 .touch-section .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
 }
-
-/* ── All inputs, select, textarea ── */
 .touch-section .contact-form input,
 .touch-section .contact-form select,
 .touch-section .contact-form textarea {
@@ -2173,23 +1769,17 @@ nav h1 span {
   appearance: none;
   border-radius: 0;
 }
-
-/* ── Placeholder text ── */
 .touch-section .contact-form input::placeholder,
 .touch-section .contact-form textarea::placeholder {
   color: rgba(248, 245, 240, 0.28);
   font-weight: 300;
 }
-
-/* ── Focus state ── */
 .touch-section .contact-form input:focus,
 .touch-section .contact-form select:focus,
 .touch-section .contact-form textarea:focus {
   border-color: #c9a84c;
   background: #1a1a1a;
 }
-
-/* ── Select custom arrow ── */
 .touch-section .contact-form select {
   cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -2199,22 +1789,13 @@ nav h1 span {
   color: rgba(248, 245, 240, 0.28);
 }
 .touch-section .contact-form select:focus,
-.touch-section .contact-form select:valid {
-  color: #f8f5f0;
-}
-.touch-section .contact-form select option {
-  background: #1a1a1a;
-  color: #f8f5f0;
-}
-
-/* ── Textarea ── */
+.touch-section .contact-form select:valid { color: #f8f5f0; }
+.touch-section .contact-form select option { background: #1a1a1a; color: #f8f5f0; }
 .touch-section .contact-form textarea {
   height: 130px;
   resize: vertical;
   line-height: 1.7;
 }
-
-/* ── Submit button ── */
 .touch-section .submit-btn {
   width: 100%;
   font-family: 'Montserrat', sans-serif;
@@ -2230,15 +1811,10 @@ nav h1 span {
   transition: background 0.3s ease, color 0.3s ease;
   border-radius: 0;
 }
-.touch-section .submit-btn:hover {
-  background: transparent;
-  color: #c9a84c;
-}
-
-/* ── WhatsApp note ── */
+.touch-section .submit-btn:hover { background: transparent; color: #c9a84c; }
 .touch-section .whatsapp-note {
   font-family: 'Montserrat', sans-serif;
-  font-size:14px;
+  font-size: 14px;
   font-weight: 400;
   color: rgba(248, 245, 240, 0.35);
   text-align: center;
@@ -2249,27 +1825,22 @@ nav h1 span {
   text-decoration: none;
   transition: opacity 0.3s ease;
 }
-.touch-section .whatsapp-note a:hover {
-  opacity: 0.7;
-}
-/* touch section ends here */
+.touch-section .whatsapp-note a:hover { opacity: 0.7; }
 
 
-/* ── Footer wrapper ── */
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
 .top-footer {
   background: #111111;
   border-top: 1px solid rgba(201, 168, 76, 0.15);
 }
-
-/* ── Main footer grid ── */
 .footer-holder {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 60px;
   padding: 80px 64px 60px;
 }
-
-/* ── Brand column ── */
 .footer-holder .footer-col:first-child h1 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
@@ -2284,8 +1855,6 @@ nav h1 span {
   color: rgba(201, 168, 76, 0.55);
   font-weight: 400;
 }
-
-/* ── Brand description ── */
 .footer-holder .footer-col:first-child p {
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
@@ -2295,14 +1864,11 @@ nav h1 span {
   max-width: 280px;
   margin-bottom: 28px;
 }
-
-/* ── Social icons row ── */
 .footer-holder .footer-col:first-child a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   border: 1px solid rgba(201, 168, 76, 0.3);
   border-radius: 50%;
   margin-right: 8px;
@@ -2316,21 +1882,14 @@ nav h1 span {
   border-color: #c9a84c;
   color: #0a0a0a;
 }
-
-/* ── WhatsApp SVG icon sizing ── */
 .footer-holder .footer-col:first-child a svg {
-  width: 14px;
-  height: 14px;
+  width: 14px; height: 14px;
   stroke: #c9a84c;
   fill: none;
   stroke-width: 1.5;
   transition: stroke 0.3s ease;
 }
-.footer-holder .footer-col:first-child a:hover svg {
-  stroke: #0a0a0a;
-}
-
-/* ── Column headings ── */
+.footer-holder .footer-col:first-child a:hover svg { stroke: #0a0a0a; }
 .footer-col h4 {
   font-family: 'Montserrat', sans-serif;
   font-size: 15px;
@@ -2342,16 +1901,12 @@ nav h1 span {
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(201, 168, 76, 0.15);
 }
-
-/* ── Link lists ── */
 .footer-links {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-
-/* ── Footer links ── */
 .footer-links a {
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
@@ -2362,12 +1917,7 @@ nav h1 span {
   transition: color 0.3s ease, padding-left 0.3s ease;
   display: inline-block;
 }
-.footer-links a:hover {
-  color: #c9a84c;
-  padding-left: 4px;
-}
-
-/* ── Bottom bar ── */
+.footer-links a:hover { color: #c9a84c; padding-left: 4px; }
 .footer-bottom {
   display: flex;
   align-items: center;
@@ -2375,8 +1925,6 @@ nav h1 span {
   padding: 24px 64px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
-
-/* ── Copyright text ── */
 .footer-copy {
   font-family: 'Montserrat', sans-serif;
   font-size: 11px;
@@ -2384,8 +1932,6 @@ nav h1 span {
   color: rgba(248, 245, 240, 0.25);
   letter-spacing: 0.5px;
 }
-
-/* ── Legal links ── */
 .footer-legal {
   display: flex;
   align-items: center;
@@ -2400,10 +1946,9 @@ nav h1 span {
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
 }
-.footer-legal a:hover {
+.footer-legal a:hover { 
   color: #c9a84c;
-}
-
+ }
 
 
 
@@ -2507,20 +2052,45 @@ nav h1 span {
 
   /* ── Nav: hide desktop links, show hamburger ── */
   .nav-links {
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    top: 70px;
+    right: 0;
+    width: 100%;
     display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
   }
+
+  .nav-links li{
+    display: block;
+    margin: 10px 0;
+    font-size: 20px;
+  }
+
+  .nav-links.active{
+    display: flex;
+  }
+
+  .menu-icon{
+    display: block;
+    font-size: 30px;
+  }
+  
   .nav-cta {
-    display: none;
+     padding: 10px 15px;
+     letter-spacing: 1px;
+     font-size: 12px;
   }
-  .hamburger {
-    display: flex !important;
-  }
+  
   nav {
     padding: 16px 20px;
     gap: 12px;
+    color: white;
   }
   nav h1 {
-    font-size: 16px;
+    font-size: 55px;
     letter-spacing: 1.5px;
   }
 
@@ -2919,5 +2489,24 @@ nav h1 span {
     width: 100vw;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

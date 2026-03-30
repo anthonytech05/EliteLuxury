@@ -2,29 +2,14 @@
 //  HAMBURGER — global so HTML onclick works
 // ═══════════════════════════════════════════
 function toggleMenu() {
-  const menu      = document.getElementById('mobileMenu');
-  const overlay   = document.getElementById('mobileOverlay');
-  const hamburger = document.getElementById('hamburger');
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
 
-  if (!menu || !hamburger) return;
-
-  const isOpen = menu.classList.contains('open');
-
-  menu.classList.toggle('open');
-  hamburger.classList.toggle('open');
-  if (overlay) overlay.classList.toggle('open');
-  document.body.style.overflow = isOpen ? '' : 'hidden';
-}
-
-// Close menu on Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    const menu = document.getElementById('mobileMenu');
-    if (menu && menu.classList.contains('open')) toggleMenu();
-    const panel = document.getElementById('cartPanel');
-    if (panel && panel.classList.contains('open')) toggleCart();
-  }
+hamburger.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
 });
+
+}
 
 
 // ═══════════════════════════════════════════
